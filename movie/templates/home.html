@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Movie Reviews</title>
 </head>
 <body>
     <h1>Welcome to Home Page, {{ name }}</h1>
     <p>This is the full home page.</p>
+    
+    <form>
+        <input type="text" name="searchMovie" placeholder="Search for a movie..." value="{{ searchTerm }}">
+        <input type="submit" value="Search">
+    </form>
+    
+    <div>
+        {% for movie in movies %}
+            <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.description }}</p>
+                {% if movie.image %}
+                    <img src="{{ movie.image.url }}" alt="{{ movie.title }}" style="max-width: 200px;">
+                {% endif %}
+                {% if movie.url %}
+                    <p><a href="{{ movie.url }}" target="_blank">More info</a></p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No movies found.</p>
+        {% endfor %}
+    </div>
 </body>
 </html>
- 
